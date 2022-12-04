@@ -18,7 +18,7 @@ namespace VectorEditor
         {            
             InitializeComponent();
             IContrl = new Controller.Controller(model);
-            IContrl.Model.GrController.SetPort(panel1.CreateGraphics());              
+            IContrl.Model.GrController.SetPort(panel1.CreateGraphics());               
         }        
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -135,6 +135,28 @@ namespace VectorEditor
         private void label1_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void panel1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left & comboBox2.SelectedIndex != -1 & comboBox2.SelectedIndex != 0)
+            {
+                int x = e.X;
+                int y = e.Y;
+                IContrl.IEvHandler.LeftMouseMove(x, y);
+                IContrl.Model.GrController.Repaint();
+            }
+        }
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left & comboBox2.SelectedIndex != -1 & comboBox2.SelectedIndex != 0)
+            {
+                int x = e.X;
+                int y = e.Y;
+                IContrl.IEvHandler.LeftMouseDown(x, y);
+                IContrl.Model.GrController.Repaint();
+            }
         }
     }
 }

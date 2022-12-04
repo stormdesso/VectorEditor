@@ -65,11 +65,15 @@
     <Compile Include="Controller\EventHandler.cs" />
     <Compile Include="Controller\IController.cs" />
     <Compile Include="Controller\IEventHandler.cs" />
+    <Compile Include="Controller\State\CreateState.cs" />
+    <Compile Include="Controller\State\DragState.cs" />
+    <Compile Include="Selection\ISelections.cs" />
+    <Compile Include="Selection\LineSelection.cs" />
     <Compile Include="Model\Class\GeometryObject\Property\FillProps.cs" />
     <Compile Include="Model\Class\GraphSystem.cs" />
     <Compile Include="Model\Class\GeometryObject\Property\Frame.cs" />
     <Compile Include="Model\Class\GeometryObject\Figure.cs" />
-    <Compile Include="Model\Class\GeometryObject\GraphItem.cs" />
+    <Compile Include="Model\Class\GraphItem.cs" />
     <Compile Include="Model\Class\GeometryObject\Property\ContourProps.cs" />
     <Compile Include="Model\Class\Factory.cs" />
     <Compile Include="Model\Class\GrPropChannel.cs" />
@@ -94,6 +98,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Selection\RectSelection.cs" />
+    <Compile Include="Selection\Selection.cs" />
+    <Compile Include="Selection\SelectionsController.cs" />
+    <Compile Include="Selection\SelectionStore.cs" />
+    <Compile Include="Controller\State\State.cs" />
+    <Compile Include="Controller\State\StateStore.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
