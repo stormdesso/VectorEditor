@@ -10,6 +10,7 @@ namespace VectorEditor.Model.Interface
     public interface IFactory
     {        
         ItemType itemType { get; set; }
-        void CreateItem(int x, int y);
+        //object CreateItem(int x, int y);        
+        void CreateAndGrabItem(int x, int y);
     }
 }

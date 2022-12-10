@@ -8,6 +8,8 @@ namespace VectorEditor.Controller
 {
     internal interface IEventHandler
     {
-        void LeftMouseUp(int x, int y);       
+        void LeftMouseUp(int x, int y);
+        void LeftMouseDown(int x, int y);
+        void LeftMouseMove(int x, int y);
     }
 }

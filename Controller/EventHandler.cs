@@ -10,14 +10,32 @@ namespace VectorEditor.Controller
     internal class EventHandler : IEventHandler
     {
         private IModel model;
+        public IModel Model { get => model; set => model = value; }
         public EventHandler(IModel model)
         {
-            this.model = model;
+            Model = model;
+            StateStore= new StateStore(this);
+            State = StateStore[StateType.CreateState];                    
         }
 
-        public void LeftMouseUp(int x, int y)
+        private State state;
+        public State State
         {
-            model.Factory.CreateItem(x, y);            
+            get { return state; }
+            set { state = value; }
         }
+
+        private StateStore stateStore;
+        public StateStore StateStore
+        {
+            get { return stateStore; }
+            set { stateStore = value; }
+        }
+
+        public void ChangeStateTo(StateType st) => State = StateStore[st];
+
+        public void LeftMouseUp(int x, int y) => State.LeftMouseUp(x, y);                    
+        public void LeftMouseDown(int x, int y) => State.LeftMouseDown(x, y);
+        public void LeftMouseMove(int x, int y) => State.MouseMove(x, y);               
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,8 @@ namespace VectorEditor
     class GraphSystem
     {
         public Graphics graphics { get; set; }
+
+        public Pen penSelection;
 
         private Pen pen;
         public Pen Pen
@@ -28,20 +31,25 @@ namespace VectorEditor
         {
             graphics = gr;
             Pen = new Pen(Color.Black);
+            penSelection= new Pen(Color.Red);
         }
 
-        public void Line(int x, int y)
+        public void Line(int x, int y, int x2, int y2)
         {
-            graphics.DrawLine(Pen, x, y, x+50, y+50);
+            graphics.DrawLine(Pen, x, y, x2, y2);
         }
 
-        public void Rect(int x, int y)
-        {
-            Rectangle rectangle = new Rectangle(x, y, 50, 50);    
-            graphics.DrawRectangle(Pen,rectangle);
-            SolidBrush sb = new SolidBrush(FillColor);
-            graphics.FillRectangle(sb, rectangle);
+        public void Rect(int x, int y, int x2, int y2)
+        {            
+            List<Point> points = new List<Point>
+            {
+                new Point(x, y),
+                new Point(x2, y),
+                new Point(x2, y2),
+                new Point(x, y2)
+            };
+            graphics.DrawPolygon(Pen, points.ToArray());           
+            graphics.FillPolygon(new SolidBrush(FillColor), points.ToArray());
         }
-
     }
 }

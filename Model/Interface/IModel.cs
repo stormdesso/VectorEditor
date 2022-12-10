@@ -11,5 +11,6 @@ namespace VectorEditor.Model.Interface
         IGrProperties GrProperties { get; }
         IGrController GrController { get; }
         IFactory Factory { get; }
+        ISelections Selections { get; }
     }
 }

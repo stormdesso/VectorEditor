@@ -12,9 +12,14 @@ namespace VectorEditor
         {
         }
 
+        public override Selection CreateSelection()
+        {
+            return new RectSelection(this);   
+        }
+
         protected override void DrawGeometry(GraphSystem gs)
         {
-            gs.Rect(this.Frame.X, this.Frame.Y);
+            gs.Rect(this.Frame.X, this.Frame.Y, this.Frame.X2, this.Frame.Y2);
         }
     }
 }

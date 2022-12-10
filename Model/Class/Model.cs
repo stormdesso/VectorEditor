@@ -12,9 +12,12 @@ namespace VectorEditor.Model.Class
         public Model(VectorEditor.GraphSystem gs)
         {
             Store store = new Store();
-            factory = new Factory(store);
+            SelectionStore selStore = new SelectionStore();
+
+            Selections = new SelectionsController(selStore);
+            factory = new Factory(store, (SelectionsController)Selections);            
             gr = new GrPropChannel(factory);
-            scene = new Scene(gs, store);            
+            scene = new Scene(gs, store, selStore);            
         }
 
         private GrPropChannel gr;
@@ -25,5 +28,13 @@ namespace VectorEditor.Model.Class
 
         private Factory factory;
         IFactory IModel.Factory { get { return factory; } }
+
+        private SelectionsController selectionController;
+        public ISelections Selections
+        {
+            get { return selectionController; }
+            set { selectionController = (SelectionsController)value; }
+        }
+
     }
 }
