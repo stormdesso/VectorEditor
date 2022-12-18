@@ -18,7 +18,9 @@ namespace VectorEditor
         {            
             InitializeComponent();
             IContrl = new Controller.Controller(model);
-            IContrl.Model.GrController.SetPort(panel1.CreateGraphics());               
+            IContrl.Model.GrController.SetPort(panel1.CreateGraphics());
+
+            this.KeyPreview = true;
         }        
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -36,7 +38,9 @@ namespace VectorEditor
         }
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
-        {           
+        {
+            IContrl.IEvHandler.CtrlIsPressed = (Control.ModifierKeys == Keys.Control);
+
             if (e.Button == MouseButtons.Left & comboBox2.SelectedIndex != -1 & comboBox2.SelectedIndex != 0)
             {
                 int x = e.X;
@@ -113,8 +117,15 @@ namespace VectorEditor
             if (comboBox2.SelectedIndex == 1)
                 IContrl.Model.Factory.itemType = Model.Interface.ItemType.Line;
             else
-            if (comboBox2.SelectedIndex == 2)
-                    IContrl.Model.Factory.itemType = Model.Interface.ItemType.Rect;            
+                if (comboBox2.SelectedIndex == 2)
+                    IContrl.Model.Factory.itemType = Model.Interface.ItemType.Rect;
+            else
+                if (comboBox2.SelectedIndex == 3)
+                    IContrl.Model.Factory.itemType = Model.Interface.ItemType.Ellipse;
+
+            IContrl.IEvHandler.EscPress();//сбрасываем всё
+            IContrl.IEvHandler.SetDefaultState();//принудительно переходим в состояние create state
+            IContrl.Model.GrController.Repaint();
         }
 
         private void comboBox2_SelectionChangeCommitted(object sender, EventArgs e)
@@ -138,7 +149,9 @@ namespace VectorEditor
         }
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
-        {
+        {           
+            IContrl.IEvHandler.CtrlIsPressed = (Control.ModifierKeys == Keys.Control);            
+
             if (e.Button == MouseButtons.Left & comboBox2.SelectedIndex != -1 & comboBox2.SelectedIndex != 0)
             {
                 int x = e.X;
@@ -150,6 +163,8 @@ namespace VectorEditor
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
+            IContrl.IEvHandler.CtrlIsPressed = (Control.ModifierKeys == Keys.Control);
+
             if (e.Button == MouseButtons.Left & comboBox2.SelectedIndex != -1 & comboBox2.SelectedIndex != 0)
             {
                 int x = e.X;
@@ -157,6 +172,38 @@ namespace VectorEditor
                 IContrl.IEvHandler.LeftMouseDown(x, y);
                 IContrl.Model.GrController.Repaint();
             }
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)Keys.Escape)
+            {
+                IContrl.IEvHandler.EscPress();
+            }
+
+            if (e.KeyValue == (char)Keys.Delete)
+            {
+                IContrl.IEvHandler.Delete();
+            }
+                        
+            IContrl.Model.GrController.Repaint();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            IContrl.IEvHandler.CtrlIsPressed = !(IContrl.IEvHandler.CtrlIsPressed);
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            IContrl.IEvHandler.Grouping();
+            IContrl.Model.GrController.Repaint();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            IContrl.IEvHandler.Ungrouping();
+            IContrl.Model.GrController.Repaint();
         }
     }
 }
