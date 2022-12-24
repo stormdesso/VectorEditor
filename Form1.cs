@@ -37,18 +37,7 @@ namespace VectorEditor
         {
         }
 
-        private void Form1_MouseUp(object sender, MouseEventArgs e)
-        {
-            IContrl.IEvHandler.CtrlIsPressed = (Control.ModifierKeys == Keys.Control);
-
-            if (e.Button == MouseButtons.Left & comboBox2.SelectedIndex != -1 & comboBox2.SelectedIndex != 0)
-            {
-                int x = e.X;
-                int y = e.Y;
-                IContrl.IEvHandler.LeftMouseUp(x, y);                
-                IContrl.Model.GrController.Repaint();               
-            }
-        }
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -93,14 +82,9 @@ namespace VectorEditor
             }
         }
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            IContrl.Model.GrProperties.ContourProps.Thickness = trackBar1.Value;
+            IContrl.Model.GrProperties.ContourProps.Thickness = trackBarBrush.Value;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -122,6 +106,9 @@ namespace VectorEditor
             else
                 if (comboBox2.SelectedIndex == 3)
                     IContrl.Model.Factory.itemType = Model.Interface.ItemType.Ellipse;
+            else
+                if (comboBox2.SelectedIndex == 4)
+                    IContrl.Model.Factory.itemType = Model.Interface.ItemType.Text;
 
             IContrl.IEvHandler.EscPress();//сбрасываем всё
             IContrl.IEvHandler.SetDefaultState();//принудительно переходим в состояние create state
@@ -148,6 +135,23 @@ namespace VectorEditor
 
         }
 
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            IContrl.IEvHandler.CtrlIsPressed = (Control.ModifierKeys == Keys.Control);
+
+            if (e.Button == MouseButtons.Left & comboBox2.SelectedIndex != -1 & comboBox2.SelectedIndex != 0)
+            {
+                int x = e.X;
+                int y = e.Y;
+                IContrl.IEvHandler.LeftMouseUp(x, y);
+                IContrl.Model.GrController.Repaint();
+
+                string text = IContrl.IEvHandler.SetCurrentTextInTextBox();
+                if (text != null)
+                    textBox1.Text = text;
+            }
+        }
+
         private void panel1_MouseMove(object sender, MouseEventArgs e)
         {           
             IContrl.IEvHandler.CtrlIsPressed = (Control.ModifierKeys == Keys.Control);            
@@ -171,6 +175,8 @@ namespace VectorEditor
                 int y = e.Y;
                 IContrl.IEvHandler.LeftMouseDown(x, y);
                 IContrl.Model.GrController.Repaint();
+
+                              
             }
         }
 
@@ -204,6 +210,39 @@ namespace VectorEditor
         {
             IContrl.IEvHandler.Ungrouping();
             IContrl.Model.GrController.Repaint();
+        }
+
+        private void textBox1_TextChanged_2(object sender, EventArgs e)
+        {
+            //textBox1.Text = IContrl.IEvHandler.SetCurrentTextInTextBox();
+            IContrl.IEvHandler.UpdateText(textBox1.Text);
+            IContrl.Model.GrController.Repaint();
+        }
+
+        private void ButtonFontColor_Click(object sender, EventArgs e)
+        {
+            using (ColorDialog d = new ColorDialog())
+            {
+                if (d.ShowDialog() == DialogResult.OK)
+                {
+                    IContrl.Model.GrProperties.TextProps.Color = d.Color;
+                }
+            }
+        }
+
+        private void trackBarFont_Scroll(object sender, EventArgs e)
+        {
+        }
+
+        private void buttonFontStyle_Click(object sender, EventArgs e)
+        {
+            using (FontDialog d = new FontDialog())
+            {
+                if (d.ShowDialog() == DialogResult.OK)
+                {                    
+                    IContrl.Model.GrProperties.TextProps.GeneralFontSettings = d.Font;
+                }
+            }
         }
     }
 }

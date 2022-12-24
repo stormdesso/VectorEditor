@@ -72,12 +72,14 @@
     <Compile Include="Controller\State\MultiSelectState.cs" />
     <Compile Include="Controller\State\SingleSelectState.cs" />
     <Compile Include="EllipseSelection.cs" />
+    <Compile Include="IText.cs" />
     <Compile Include="Model\Class\GeometryObject\Ellipse.cs" />
     <Compile Include="Model\Class\GeometryObject\Group.cs" />
     <Compile Include="GroupSelection.cs" />
     <Compile Include="ISelections.cs" />
     <Compile Include="LineSelection.cs" />
     <Compile Include="Model\Class\GeometryObject\Property\FillProps.cs" />
+    <Compile Include="Model\Class\GeometryObject\Property\TextProps.cs" />
     <Compile Include="Model\Class\GraphSystem.cs" />
     <Compile Include="Model\Class\GeometryObject\Property\Frame.cs" />
     <Compile Include="Model\Class\GeometryObject\Figure.cs" />
@@ -104,6 +106,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Interface\ITextProp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RectSelection.cs" />
@@ -112,6 +115,9 @@
     <Compile Include="SelectionStore.cs" />
     <Compile Include="Controller\State\State.cs" />
     <Compile Include="Controller\State\StateStore.cs" />
+    <Compile Include="Text.cs" />
+    <Compile Include="TextController.cs" />
+    <Compile Include="TextSelection.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
